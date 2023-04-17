@@ -4,8 +4,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/user.entity';
-import { UsersService } from 'src/users/users.service';
+import { User } from '../users/user.entity';
+import { UsersService } from '../users/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -33,9 +33,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const tokens = await this.updateToken(user);
-
-    return { ...tokens, user };
+    return user;
   }
 
   async signin({ email, password }: LoginUserDto) {
@@ -51,22 +49,26 @@ export class AuthService {
       throw new BadRequestException({ message: '패스워드를 확인해주세요.' });
     }
 
-    const tokens = await this.updateToken(user);
-
-    return { ...tokens, user };
+    return user;
   }
 
-  async updateToken(user: User) {
+  async createToken(user: User) {
     const payload = { userName: user.userName, email: user.email, id: user.id };
 
     const refresh_token = await this.jwtService.signAsync(payload, {
       expiresIn: '7 days',
+      secret: 'thisIsSecretKey',
+    });
+
+    const access_token = await this.jwtService.signAsync(payload, {
+      expiresIn: '1h',
+      secret: 'thisIsSecretKey',
     });
 
     await this.usersService.updateRefreshToken(user.email, refresh_token);
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token,
       refresh_token,
     };
   }
@@ -75,8 +77,9 @@ export class AuthService {
     const user = await this.usersService.findOne(email);
 
     if (!(refresh_token === user.refresh_token)) {
-      console.log(refresh_token, user.refresh_token);
-      throw new UnauthorizedException();
+      throw new UnauthorizedException({
+        message: 'refresh_token이 유효하지 않습니다.',
+      });
     }
 
     return true;
@@ -85,8 +88,13 @@ export class AuthService {
   async getAccessToken(user: User) {
     const payload = { userName: user.userName, email: user.email, id: user.id };
 
+    const access_token = await this.jwtService.signAsync(payload, {
+      expiresIn: '1h',
+      secret: 'thisIsSecretKey',
+    });
+
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token,
     };
   }
 }

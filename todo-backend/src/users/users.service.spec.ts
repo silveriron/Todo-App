@@ -30,10 +30,6 @@ describe('UsersService', () => {
     userRepository = module.get(getRepositoryToken(User));
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-
   it('SUCCESS: 모든 유저를 반환한다.', async () => {
     userRepository.find.mockResolvedValue([{ id: 1, email: 'test' }]);
     const users = await service.findAll();

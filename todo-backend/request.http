@@ -21,3 +21,12 @@ POST http://localhost:3001/api/v1/auth/signout
 
 ###
 GET http://localhost:3001/api/v1/todos
+
+###
+POST http://localhost:3001/api/v1/todos
+Content-Type: application/json
+
+{
+  "title": "test",
+  "content": "test"
+}

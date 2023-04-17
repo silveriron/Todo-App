@@ -7,10 +7,13 @@ export class Todo {
   id: number;
 
   @Column()
+  title: string;
+
+  @Column()
   content: string;
 
   @Column()
-  isCompleted: boolean;
+  isStatus: 'todo' | 'doing' | 'done';
 
   @ManyToOne(() => User, (user) => user.todos)
   user: User;

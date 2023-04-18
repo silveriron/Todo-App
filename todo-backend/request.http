@@ -1,13 +1,14 @@
+### 회원가입
 POST http://localhost:3001/api/v1/auth/signup
 Content-Type: application/json
 
 {
-  "email": "test44@test.com",
+  "email": "test55@test.com",
   "password": "test",
   "userName": "tester"
 }
 
-###
+### 로그인
 POST http://localhost:3001/api/v1/auth/signin
 Content-Type: application/json
 
@@ -16,16 +17,19 @@ Content-Type: application/json
   "password": "test"
 }
 
-###
-GET http://localhost:3001/users/findAll
-
-###
+### 로그아웃
 POST http://localhost:3001/api/v1/auth/signout
 
-###
+### todo 전체 조회
 GET http://localhost:3001/api/v1/todos
 
-###
+### id로 todo 조회
+GET http://localhost:3001/api/v1/todos/3
+
+### 유저의 todo 조회
+GET http://localhost:3001/api/v1/todos/user
+
+### todo 생성
 POST http://localhost:3001/api/v1/todos
 Content-Type: application/json
 

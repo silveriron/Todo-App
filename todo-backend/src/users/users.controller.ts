@@ -4,7 +4,7 @@ import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user-dto';
 import { UsersService } from './users.service';
 
-@Controller('users')
+@Controller('api/v1/users')
 @Serialize(UserDto)
 @UseGuards(AuthGuard)
 export class UsersController {

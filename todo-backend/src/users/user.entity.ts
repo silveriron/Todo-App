@@ -1,5 +1,11 @@
 import { Todo } from '../todos/todo.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -18,6 +24,6 @@ export class User {
   @Column()
   refresh_token: string;
 
-  @OneToMany(() => Todo, (todo) => todo.user)
+  @OneToMany(() => Todo, (todo) => todo)
   todos: Todo[];
 }

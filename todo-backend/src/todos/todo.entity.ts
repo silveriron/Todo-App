@@ -19,7 +19,7 @@ export class Todo {
   content: string;
 
   @Column()
-  isCompleted: boolean;
+  isStatus: 'todo' | 'doing' | 'done';
 
   @ManyToOne(() => User, (user) => user.todos)
   @JoinColumn()

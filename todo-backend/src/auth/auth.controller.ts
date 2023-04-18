@@ -5,12 +5,18 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from '../users/dtos/user-dto';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('api/v1/auth')
 @Serialize(UserDto)
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @ApiOperation({ summary: '회원가입' })
+  @ApiResponse({ status: 201, type: UserDto })
+  @ApiResponse({ status: 400, description: '이미 존재하는 이메일입니다.' })
+  @ApiBody({ type: CreateUserDto })
   @Post('signup')
   async signup(
     @Body() body: CreateUserDto,
@@ -36,6 +42,13 @@ export class AuthController {
     return user;
   }
 
+  @ApiOperation({ summary: '로그인' })
+  @ApiResponse({ status: 201, type: UserDto })
+  @ApiResponse({
+    status: 400,
+    description: '이메일 또는 비밀번호가 틀렸습니다.',
+  })
+  @ApiBody({ type: LoginUserDto })
   @Post('signin')
   async signin(
     @Body() body: LoginUserDto,
@@ -61,6 +74,8 @@ export class AuthController {
     return user;
   }
 
+  @ApiOperation({ summary: '로그아웃' })
+  @ApiResponse({ status: 201, description: '로그아웃 되었습니다.' })
   @Post('signout')
   signout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('access_token');

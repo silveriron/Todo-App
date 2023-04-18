@@ -57,12 +57,12 @@ export class AuthService {
 
     const refresh_token = await this.jwtService.signAsync(payload, {
       expiresIn: '7 days',
-      secret: 'thisIsSecretKey',
+      secret: process.env.JWT_SECRET,
     });
 
     const access_token = await this.jwtService.signAsync(payload, {
       expiresIn: '1h',
-      secret: 'thisIsSecretKey',
+      secret: process.env.JWT_SECRET,
     });
 
     await this.usersService.updateRefreshToken(user.email, refresh_token);
@@ -90,7 +90,7 @@ export class AuthService {
 
     const access_token = await this.jwtService.signAsync(payload, {
       expiresIn: '1h',
-      secret: 'thisIsSecretKey',
+      secret: process.env.JWT_SECRET,
     });
 
     return {

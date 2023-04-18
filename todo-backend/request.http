@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "email": "test55@test.com",
-  "password": "test",
+  "password": "test123456",
   "userName": "tester"
 }
 
@@ -13,8 +13,8 @@ POST http://localhost:3001/api/v1/auth/signin
 Content-Type: application/json
 
 {
-  "email": "test44@test.com",
-  "password": "test"
+  "email": "test55@test.com",
+  "password": "test123456"
 }
 
 ### 로그아웃

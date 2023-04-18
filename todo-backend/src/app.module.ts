@@ -8,6 +8,8 @@ import { User } from './users/user.entity';
 import { APP_PIPE } from '@nestjs/core';
 import { Todo } from './todos/todo.entity';
 import { TodosModule } from './todos/todos.module';
+import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieSession = require('cookie-session');
 
@@ -16,9 +18,18 @@ const cookieSession = require('cookie-session');
     UsersModule,
     AuthModule,
     TodosModule,
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '30m' },
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.test',
+    }),
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'db.sqlite',
+      database: process.env.NODE_ENV === 'dev' ? 'db.sqlite' : 'test.sqlite',
       entities: [User, Todo],
       synchronize: true,
     }),

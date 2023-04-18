@@ -63,12 +63,8 @@ export class AuthController {
 
   @Post('signout')
   signout(@Res({ passthrough: true }) res: Response) {
-    res.cookie('access_token', null, {
-      maxAge: 0,
-    });
-    res.cookie('refresh_token', null, {
-      maxAge: 0,
-    });
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
     return '로그아웃 되었습니다.';
   }
 }

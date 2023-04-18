@@ -50,6 +50,7 @@ export class TodosController {
   async create(@Body() body: CreateTodoDto, @Req() req: Request) {
     const { title, content } = body;
     const userId = req.user.id;
+
     return await this.todosService.create({ title, content, userId });
   }
 

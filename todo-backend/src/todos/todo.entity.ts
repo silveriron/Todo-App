@@ -1,11 +1,5 @@
 import { User } from '../users/user.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Todo {
@@ -22,6 +16,5 @@ export class Todo {
   isStatus: 'todo' | 'doing' | 'done';
 
   @ManyToOne(() => User, (user) => user.todos)
-  @JoinColumn()
   user: User;
 }

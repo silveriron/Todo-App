@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 
 export class TodoDto {
   @Expose()
@@ -9,6 +9,7 @@ export class TodoDto {
   content: string;
   @Expose()
   isStatus: 'todo' | 'doing' | 'done';
+  @Transform(({ obj }) => obj.user.id)
   @Expose()
   userId: number;
 }

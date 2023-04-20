@@ -107,10 +107,7 @@ describe('AuthService', () => {
     usersService.findOne = jest
       .fn()
       .mockResolvedValue({ ...user, refresh_token: refresh_token });
-    const vaildate = await service.validateRefreshToken(
-      user.email,
-      refresh_token,
-    );
+    const vaildate = await service.validateRefreshToken(refresh_token);
     expect(vaildate).toBeTruthy();
   });
 
@@ -123,7 +120,7 @@ describe('AuthService', () => {
     } as User);
     usersService.findOne = jest.fn().mockResolvedValue(user);
     try {
-      await service.validateRefreshToken(user.email, refresh_token);
+      await service.validateRefreshToken(refresh_token);
     } catch (e) {
       expect(e.message).toEqual('refresh_token이 유효하지 않습니다.');
     }

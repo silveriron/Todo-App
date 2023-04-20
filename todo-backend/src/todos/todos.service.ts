@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Todo } from './todo.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class TodosService {
@@ -9,8 +10,11 @@ export class TodosService {
     @InjectRepository(Todo) private todosRepository: Repository<Todo>,
   ) {}
 
-  findAll(): Promise<Todo[]> {
-    return this.todosRepository.find();
+  async findAll(): Promise<Todo[]> {
+    const todos = await this.todosRepository.find({
+      relations: { user: true },
+    });
+    return todos;
   }
 
   findOne(id: number): Promise<Todo> {
@@ -32,22 +36,24 @@ export class TodosService {
     return todos;
   }
 
-  create({
+  async create({
     title,
     content,
-    userId,
+    user,
   }: {
     title: string;
     content: string;
-    userId: number;
+    user: User;
   }): Promise<Todo> {
     const newTodo = this.todosRepository.create({
       title,
       content,
-      user: { id: userId },
+      user,
       isStatus: 'todo',
     });
-    return this.todosRepository.save(newTodo);
+    const todo = await this.todosRepository.save(newTodo);
+    console.log(todo);
+    return todo;
   }
 
   delete(id: number) {

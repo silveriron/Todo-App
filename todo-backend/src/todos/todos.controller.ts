@@ -74,9 +74,9 @@ export class TodosController {
   @Post()
   async create(@Body() body: CreateTodoDto, @Req() req: Request) {
     const { title, content } = body;
-    const userId = req.user.id;
+    const user = req.user;
 
-    return await this.todosService.create({ title, content, userId });
+    return await this.todosService.create({ title, content, user });
   }
 
   @ApiOperation({ summary: 'Todo 삭제' })

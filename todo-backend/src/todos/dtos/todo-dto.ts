@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Transform } from 'class-transformer';
+import { User } from 'src/users/user.entity';
 
 export class TodoDto {
   @ApiProperty({
@@ -30,7 +31,9 @@ export class TodoDto {
     example: 1,
     description: '할 일을 생성한 사용자 고유 ID',
   })
-  @Transform(({ obj }) => obj.user.id)
+  @Transform(({ obj }) => {
+    return obj.user.id;
+  })
   @Expose()
   userId: number;
 }

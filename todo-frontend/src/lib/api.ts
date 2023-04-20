@@ -19,6 +19,10 @@ export const signIn = async (data: UserDto) => {
   return await instance.post("/auth/signin", data);
 };
 
+export const getAccessToken = async () => {
+  return await instance.post("/auth/refresh");
+};
+
 export const createTodo = async (data: CreateTodoDto) => {
   return await instance.post<Todo>("/todos", data);
 };

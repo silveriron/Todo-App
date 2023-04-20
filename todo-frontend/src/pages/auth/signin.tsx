@@ -7,13 +7,20 @@ import { signinSchema } from "@/lib/formSchema";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/lib/api";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Signin = () => {
   const methods = useForm({
     resolver: yupResolver(signinSchema),
     mode: "onBlur",
   });
-  const { mutate } = useMutation(signIn);
+  const router = useRouter();
+  const { mutate } = useMutation(signIn, {
+    onSuccess: (data) => {
+      console.log(data);
+      router.push("/todo");
+    },
+  });
 
   const onSubmit = async (data: any) => {
     mutate(data);

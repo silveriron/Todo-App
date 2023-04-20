@@ -73,7 +73,10 @@ export class AuthService {
     };
   }
 
-  async validateRefreshToken(email, refresh_token: string) {
+  async validateRefreshToken(refresh_token: string) {
+    const { email } = await this.jwtService.verifyAsync(refresh_token, {
+      secret: process.env.JWT_SECRET,
+    });
     const user = await this.usersService.findOne(email);
 
     if (!(refresh_token === user.refresh_token)) {
@@ -82,7 +85,7 @@ export class AuthService {
       });
     }
 
-    return true;
+    return user;
   }
 
   async getAccessToken(user: User) {

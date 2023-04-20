@@ -37,10 +37,7 @@ export class AuthGuard implements CanActivate {
           secret: process.env.JWT_SECRET,
         });
 
-        await this.authService.validateRefreshToken(
-          payload.email,
-          token.refresh_token,
-        );
+        await this.authService.validateRefreshToken(token.refresh_token);
 
         const { access_token } = await this.authService.getAccessToken(payload);
         response.cookie('access_token', access_token, {

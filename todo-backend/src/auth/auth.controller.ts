@@ -1,5 +1,12 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
-import { Response } from 'express';
+import {
+  Body,
+  Controller,
+  Post,
+  Res,
+  Req,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
@@ -31,13 +38,13 @@ export class AuthController {
     res.cookie('access_token', access_token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 30,
-      sameSite: 'none',
+      sameSite: 'lax',
       secure: true,
     });
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
-      sameSite: 'none',
+      sameSite: 'lax',
       secure: true,
     });
 
@@ -85,5 +92,43 @@ export class AuthController {
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
     return '로그아웃 되었습니다.';
+  }
+
+  @ApiOperation({ summary: '토큰 재발급' })
+  @ApiResponse({ status: 201, description: '토큰이 재발급 되었습니다.' })
+  @ApiResponse({ status: 400, description: '토큰이 유효하지 않습니다.' })
+  @Post('refresh')
+  async refresh(
+    @Res({ passthrough: true }) res: Response,
+    @Req() req: Request,
+  ) {
+    const refresh_token = req.cookies.refresh_token;
+
+    if (!refresh_token) {
+      throw new UnauthorizedException('토큰이 유효하지 않습니다.');
+    }
+
+    const user = await this.authService.validateRefreshToken(refresh_token);
+
+    if (!user) {
+      throw new UnauthorizedException('토큰이 유효하지 않습니다.');
+    }
+
+    const access_token = await this.authService.getAccessToken(user);
+
+    res.cookie('access_token', access_token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 30,
+      sameSite: 'lax',
+      secure: true,
+    });
+    res.cookie('refresh_token', refresh_token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      sameSite: 'lax',
+      secure: true,
+    });
+
+    return '토큰이 재발급 되었습니다.';
   }
 }

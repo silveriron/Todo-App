@@ -1,12 +1,10 @@
-import React from "react";
+import { Props } from "@/types/props";
 
-interface TitleProps {
-  children: React.ReactNode;
-}
-
-const Title = ({ children }: TitleProps) => {
+const Title = ({ children, className }: Props) => {
   return (
-    <h1 className="text-[40px] font-bold text-left text-black">{children}</h1>
+    <h1 className={`${className} text-[40px] font-bold text-left text-black`}>
+      {children}
+    </h1>
   );
 };
 

@@ -31,12 +31,14 @@ export class AuthController {
     res.cookie('access_token', access_token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 30,
-      sameSite: 'lax',
+      sameSite: 'none',
+      secure: true,
     });
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
-      sameSite: 'lax',
+      sameSite: 'none',
+      secure: true,
     });
 
     return user;
@@ -63,12 +65,14 @@ export class AuthController {
     res.cookie('access_token', access_token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 30,
-      sameSite: 'lax',
+      sameSite: 'none',
+      secure: true,
     });
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
-      sameSite: 'lax',
+      sameSite: 'none',
+      secure: true,
     });
 
     return user;

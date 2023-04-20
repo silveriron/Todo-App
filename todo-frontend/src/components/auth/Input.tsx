@@ -13,12 +13,12 @@ const Input = ({ name, type, placeholder }: InputProps) => {
     formState: { errors },
   } = useFormContext();
   return (
-    <>
+    <div className="mb-5">
       <label
-        className="text-base font-bold text-left text-[#a8a8a5] mb-3"
+        className="text-base block font-bold text-left text-[#a8a8a5] mb-3"
         htmlFor={name}
       >
-        {name}
+        {name[0].toUpperCase() + name.slice(1)}
       </label>
       <input
         id={name}
@@ -27,10 +27,12 @@ const Input = ({ name, type, placeholder }: InputProps) => {
         type={type}
         placeholder={placeholder}
       />
-      {errors.email && (
-        <p className="text-slate-">{errors.email.message as string}</p>
+      {errors[name] && (
+        <p className="text-red-300 text-sm">
+          {errors[name]!.message as string}
+        </p>
       )}
-    </>
+    </div>
   );
 };
 

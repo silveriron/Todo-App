@@ -1,11 +1,6 @@
-import React from "react";
+import { Props } from "@/types/props";
 
-interface BigTextProps {
-  children: React.ReactNode;
-  className: string;
-}
-
-const BigText = ({ children, className }: BigTextProps) => {
+const BigText = ({ children, className }: Props) => {
   return (
     <p className={`${className} text-base font-bold text-left text-black`}>
       {children}

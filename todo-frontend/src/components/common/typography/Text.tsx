@@ -1,11 +1,9 @@
-import React from "react";
+import { Props } from "@/types/props";
 
-interface TextProps {
-  children: React.ReactNode;
-}
-
-const Text = ({ children }: TextProps) => {
-  return <p className="text-sm text-left text-black">{children}</p>;
+const Text = ({ children, className }: Props) => {
+  return (
+    <p className={`${className} text-sm text-left text-black`}>{children}</p>
+  );
 };
 
 export default Text;

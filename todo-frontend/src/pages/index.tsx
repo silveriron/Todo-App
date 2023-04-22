@@ -5,21 +5,20 @@ import { useRouter } from "next/router";
 
 const Main = () => {
   const router = useRouter();
-  const { isLoading, isError, data } = useQuery({
-    queryKey: ["user"],
-    queryFn: getAccessToken,
+
+  useEffect(() => {
+    getAccessToken()
+      .then((res) => {
+        if (res.status === 200) {
+          router.push("/todo");
+        } else {
+          router.push("/auth/signin");
+        }
+      })
+      .catch((err) => {
+        router.push("/auth/signin");
+      });
   });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error</div>;
-
-  if (data.status === 201) {
-    router.push("/todo");
-  }
-
-  if (data.status === 401) {
-    router.push("/auth/signin");
-  }
 
   return <div>index</div>;
 };

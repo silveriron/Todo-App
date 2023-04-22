@@ -15,7 +15,7 @@ const Input = ({ name, type, placeholder }: InputProps) => {
   return (
     <div className="mb-5">
       <label
-        className="text-base block font-bold text-left text-[#a8a8a5] mb-3"
+        className="text-base block font-bold text-left text-gray mb-3"
         htmlFor={name}
       >
         {name[0].toUpperCase() + name.slice(1)}

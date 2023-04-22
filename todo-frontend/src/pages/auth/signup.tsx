@@ -7,6 +7,8 @@ import { signupSchema } from "@/lib/formSchema";
 import { useMutation } from "@tanstack/react-query";
 import { signUp } from "@/lib/api";
 import { useRouter } from "next/router";
+import LinkButton from "@/components/auth/LinkButton";
+import SubmitButton from "@/components/auth/SubmitButton";
 
 type FormValues = {
   email: string;
@@ -54,12 +56,8 @@ const Signup = () => {
             type="password"
             placeholder="Enter your password"
           />
-          <button
-            className="h-[35px] rounded text-red-300 font-bold bg-[#fcf5f2] border border-[#f2c8c5]"
-            style={{ boxShadow: "0px 1px 1px 0 rgba(0,0,0,0.2)" }}
-          >
-            Submit
-          </button>
+          <SubmitButton>Submit</SubmitButton>
+          <LinkButton href="/auth/signin">sign in</LinkButton>
         </form>
       </div>
     </FormProvider>

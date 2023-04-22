@@ -14,7 +14,7 @@ module.exports = {
       "done-color": "#DEECDC",
       "done-color-dark": "#769A7F",
       "bg-white": "#FAFAFA",
-      gray: "#E0E0E0",
+      gray: "#a8a8a5",
       "red-300": "#DA615C",
       "red-200": "#F2C8C5",
       "red-100": "#FCF5F2",

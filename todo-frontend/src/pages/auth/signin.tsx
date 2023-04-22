@@ -6,8 +6,10 @@ import Title from "@/components/common/typography/Title";
 import { signinSchema } from "@/lib/formSchema";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/lib/api";
-import axios from "axios";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import LinkButton from "@/components/auth/LinkButton";
+import SubmitButton from "@/components/auth/SubmitButton";
 
 const Signin = () => {
   const methods = useForm({
@@ -44,12 +46,8 @@ const Signin = () => {
             type="password"
             placeholder="Enter your password"
           />
-          <button
-            className="h-[35px] rounded text-red-300 font-bold bg-[#fcf5f2] border border-[#f2c8c5]"
-            style={{ boxShadow: "0px 1px 1px 0 rgba(0,0,0,0.2)" }}
-          >
-            Submit
-          </button>
+          <SubmitButton>Submit</SubmitButton>
+          <LinkButton href="/auth/signup">sign up</LinkButton>
         </form>
       </div>
     </FormProvider>

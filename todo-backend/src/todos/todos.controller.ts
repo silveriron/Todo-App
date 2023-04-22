@@ -46,16 +46,6 @@ export class TodosController {
     return await this.todosService.findAll();
   }
 
-  @ApiOperation({ summary: '특정 Todo 조회' })
-  @ApiResponse({ status: 200, type: TodoDto })
-  @ApiResponse({ status: 401, description: '로그인이 필요합니다.' })
-  @ApiResponse({ status: 404, description: 'Todo가 존재하지 않습니다.' })
-  @ApiQuery({ name: 'id', type: Number, required: true })
-  @Get('/:id')
-  async findOne(@Param('id') id: string) {
-    return await this.todosService.findOne(parseInt(id, 10));
-  }
-
   @ApiOperation({ summary: '특정 User의 Todo 조회' })
   @ApiResponse({ status: 200, type: [TodoDto] })
   @ApiResponse({ status: 401, description: '로그인이 필요합니다.' })
@@ -64,6 +54,16 @@ export class TodosController {
   async findByUserId(@Req() req: Request) {
     const userId = req.user.id;
     return await this.todosService.findByUserId(userId);
+  }
+
+  @ApiOperation({ summary: '특정 Todo 조회' })
+  @ApiResponse({ status: 200, type: TodoDto })
+  @ApiResponse({ status: 401, description: '로그인이 필요합니다.' })
+  @ApiResponse({ status: 404, description: 'Todo가 존재하지 않습니다.' })
+  @ApiQuery({ name: 'id', type: Number, required: true })
+  @Get('/:id')
+  async findOne(@Param('id') id: string) {
+    return await this.todosService.findOne(parseInt(id, 10));
   }
 
   @ApiOperation({ summary: 'Todo 생성' })

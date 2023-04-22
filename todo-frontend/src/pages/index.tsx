@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { getAccessToken } from "@/lib/api";
 import { useRouter } from "next/router";
 
@@ -9,7 +8,7 @@ const Main = () => {
   useEffect(() => {
     getAccessToken()
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           router.push("/todo");
         } else {
           router.push("/auth/signin");

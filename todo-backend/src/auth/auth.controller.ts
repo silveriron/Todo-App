@@ -6,13 +6,25 @@ import {
   Req,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { CookieOptions, Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from '../users/dtos/user-dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
+const access_token_options: CookieOptions = {
+  httpOnly: true,
+  maxAge: 1000 * 60 * 30,
+  sameSite: 'lax',
+};
+
+const refresh_token_options: CookieOptions = {
+  httpOnly: true,
+  maxAge: 1000 * 60 * 60 * 24 * 7,
+  sameSite: 'lax',
+};
 
 @ApiTags('auth')
 @Controller('api/v1/auth')
@@ -35,18 +47,8 @@ export class AuthController {
       user,
     );
 
-    res.cookie('access_token', access_token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 30,
-      sameSite: 'lax',
-      secure: true,
-    });
-    res.cookie('refresh_token', refresh_token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      sameSite: 'lax',
-      secure: true,
-    });
+    res.cookie('access_token', access_token, access_token_options);
+    res.cookie('refresh_token', refresh_token, refresh_token_options);
 
     return user;
   }
@@ -69,18 +71,8 @@ export class AuthController {
       user,
     );
 
-    res.cookie('access_token', access_token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 30,
-      sameSite: 'none',
-      secure: true,
-    });
-    res.cookie('refresh_token', refresh_token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      sameSite: 'none',
-      secure: true,
-    });
+    res.cookie('access_token', access_token, access_token_options);
+    res.cookie('refresh_token', refresh_token, refresh_token_options);
 
     return user;
   }
@@ -116,18 +108,8 @@ export class AuthController {
 
     const access_token = await this.authService.getAccessToken(user);
 
-    res.cookie('access_token', access_token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 30,
-      sameSite: 'lax',
-      secure: true,
-    });
-    res.cookie('refresh_token', refresh_token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      sameSite: 'lax',
-      secure: true,
-    });
+    res.cookie('access_token', access_token, access_token_options);
+    res.cookie('refresh_token', refresh_token, refresh_token_options);
 
     return '토큰이 재발급 되었습니다.';
   }

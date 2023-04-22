@@ -17,20 +17,22 @@ export class TodosService {
     return todos;
   }
 
-  findOne(id: number): Promise<Todo> {
-    const todo = this.todosRepository.findOneBy({ id });
+  async findOne(id: number): Promise<Todo> {
+    const todo = await this.todosRepository.find({
+      relations: { user: true },
+      where: { id },
+    });
 
     if (!todo) {
       throw new BadRequestException('todo를 찾을 수 없습니다.');
     }
 
-    return todo;
+    return todo[0];
   }
 
-  findByUserId(userId: number): Promise<Todo[]> {
-    const todos = this.todosRepository.find({
+  async findByUserId(userId: number): Promise<Todo[]> {
+    const todos = await this.todosRepository.find({
       relations: { user: true },
-      where: { user: { id: userId } },
     });
 
     return todos;

@@ -19,6 +19,10 @@ export const signIn = async (data: UserDto) => {
   return await instance.post("/auth/signin", data);
 };
 
+export const signOut = async () => {
+  return await instance.post("/auth/signout");
+};
+
 export const getAccessToken = async () => {
   return await instance.post("/auth/refresh");
 };

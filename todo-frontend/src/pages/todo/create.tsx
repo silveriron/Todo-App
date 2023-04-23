@@ -15,6 +15,7 @@ const Create = () => {
           <label className="w-[6.25rem] h-8 flex items-center gap-1">
             <StatusIcons />
             <Text className="text-[#a8a8a8]">상태</Text>
+            <select></select>
           </label>
           <label className="w-[6.25rem] h-8  flex items-center gap-1">
             <PersonIcons />

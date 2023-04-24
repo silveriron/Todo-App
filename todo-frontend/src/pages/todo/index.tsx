@@ -19,21 +19,18 @@ const Index = () => {
   if (isError) return <div>Error</div>;
 
   return (
-    <div className="w-full px-[8.3%]">
-      <Header />
-      <main className="w-full mt-16">
-        <Title className="mb-3">할일 목록</Title>
-        <div className="w-full flex justify-end">
-          <CreateButton />
-        </div>
-        <Line />
-        <div className="flex gap-5">
-          <TodoList />
-          <DoingList />
-          <DoneList />
-        </div>
-      </main>
-    </div>
+    <main className="w-full mt-16 px-[8.3%]">
+      <Title className="mb-3">할일 목록</Title>
+      <div className="w-full flex justify-end">
+        <CreateButton />
+      </div>
+      <Line />
+      <div className="flex gap-5">
+        <TodoList />
+        <DoingList />
+        <DoneList />
+      </div>
+    </main>
   );
 };
 

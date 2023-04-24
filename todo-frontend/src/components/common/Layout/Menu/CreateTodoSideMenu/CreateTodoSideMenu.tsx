@@ -1,10 +1,9 @@
 import React from "react";
 import ArrowBack from "./icons/ArrowBack";
-import StatusIcons from "@/components/todo/icons/StatusIcons";
-import Text from "@/components/common/typography/Text";
-import PersonIcons from "@/components/todo/icons/PersonIcons";
 import { useRecoilState } from "recoil";
 import { createTodoMenuState } from "@/store/atoms/createTodoMenuState";
+import StatusContainer from "@/components/todo/Create/StatusContainer/StatusContainer";
+import NameContainer from "@/components/todo/Create/NameContainer/NameContainer";
 
 const CreateTodoSideMenu = () => {
   const [isCreateTodoMenu, setIsCreateTodo] =
@@ -34,14 +33,8 @@ const CreateTodoSideMenu = () => {
               className=" text-[2.5rem] outline-none font-bold placeholder:text-[#E1E1E0] placeholder:font-bold"
               placeholder="제목 없음"
             />
-            <label className="w-[6.25rem] h-8 flex items-center gap-1">
-              <StatusIcons />
-              <Text className="text-[#a8a8a8]">상태</Text>
-            </label>
-            <label className="w-[6.25rem] h-8  flex items-center gap-1">
-              <PersonIcons />
-              <Text className="text-[#a8a8a8]">담당자</Text>
-            </label>
+            <StatusContainer />
+            <NameContainer />
           </div>
         </form>
       </div>

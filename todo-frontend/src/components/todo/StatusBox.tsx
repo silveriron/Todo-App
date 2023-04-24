@@ -1,15 +1,16 @@
 import { Props } from "@/types/props";
+import { Status } from "@/types/status";
 import React from "react";
 
 interface StatusBoxProps extends Props {
-  type: "todo" | "doing" | "done";
+  type: Status;
 }
 
-const todoClass =
+const todoStyle =
   "w-[100px] h-[25px] pl-3 flex gap-3 items-center rounded-[50px] bg-todo-color";
-const doingClass =
-  "w-[100px] h-[25px] pl-3 flex gap-3 items-center rounded-[50px] bg-doing-color";
-const doneClass =
+const inProgressStyle =
+  "w-[130px] h-[25px] pl-3 flex gap-3 items-center rounded-[50px] bg-doing-color";
+const doneStyle =
   "w-[100px] h-[25px] pl-3 flex gap-3 items-center rounded-[50px] bg-done-color";
 
 const todoColor = "#91918E";
@@ -20,7 +21,11 @@ const StatusBox = ({ children, type }: StatusBoxProps) => {
   return (
     <div
       className={
-        type === "todo" ? todoClass : type === "doing" ? doingClass : doneClass
+        type === Status.TODO
+          ? todoStyle
+          : type === Status.IN_PROGRESS
+          ? inProgressStyle
+          : doneStyle
       }
     >
       <svg
@@ -35,9 +40,9 @@ const StatusBox = ({ children, type }: StatusBoxProps) => {
           cy="6.5"
           r="6.5"
           fill={
-            type === "todo"
+            type === Status.TODO
               ? todoColor
-              : type === "doing"
+              : type === Status.IN_PROGRESS
               ? doingColor
               : doneColor
           }

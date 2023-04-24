@@ -38,6 +38,12 @@ Content-Type: application/json
 
 {
   "title": "test",
-  "content": "test"
+  "content": "test",
+  "isStatus": "TODO"
 }
+
+### todo 삭제
+DELETE http://localhost:3001/api/v1/todos/14
+
+
 

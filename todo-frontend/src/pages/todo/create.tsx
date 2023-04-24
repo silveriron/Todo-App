@@ -28,7 +28,7 @@ const Create = () => {
             placeholder="제목 없음"
           />
           <StatusContainer />
-          <NameContainer />
+          {/* <NameContainer /> */}
         </div>
         {init && <Editor />}
       </form>

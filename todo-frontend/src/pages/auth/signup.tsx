@@ -5,7 +5,7 @@ import Input from "@/components/auth/Input";
 import Title from "@/components/common/typography/Title";
 import { signupSchema } from "@/lib/formSchema";
 import { useMutation } from "@tanstack/react-query";
-import { signUp } from "@/lib/api";
+import { signUp } from "@/lib/api/api";
 import { useRouter } from "next/router";
 import LinkButton from "@/components/auth/LinkButton";
 import SubmitButton from "@/components/auth/SubmitButton";

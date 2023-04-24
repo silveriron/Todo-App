@@ -3,6 +3,7 @@ import { TodosController } from './todos.controller';
 import { TodosService } from './todos.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from '../auth/auth.service';
+import { Status } from './todo.entity';
 
 const mockTodosService = {
   findAll: jest.fn(),
@@ -17,7 +18,7 @@ const mockTodo = {
   id: 1,
   title: 'test',
   content: 'test',
-  isStatus: 'todo',
+  isStatus: Status.TODO,
   userId: 1,
 };
 
@@ -77,7 +78,7 @@ describe('TodosController', () => {
       },
     };
     const todo = await controller.create(
-      { title: 'test', content: 'test' },
+      { title: 'test', content: 'test', isStatus: Status.TODO },
       req as any,
     );
     expect(todo.title).toEqual('test');

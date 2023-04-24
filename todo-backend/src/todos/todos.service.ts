@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Todo } from './todo.entity';
+import { Status, Todo } from './todo.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/users/user.entity';
@@ -41,25 +41,39 @@ export class TodosService {
   async create({
     title,
     content,
+    isStatus,
     user,
   }: {
     title: string;
     content: string;
+    isStatus: Status;
     user: User;
   }): Promise<Todo> {
     const newTodo = this.todosRepository.create({
       title,
       content,
       user,
-      isStatus: 'todo',
+      isStatus,
     });
     const todo = await this.todosRepository.save(newTodo);
-    console.log(todo);
     return todo;
   }
 
-  delete(id: number) {
-    return this.todosRepository.delete(id);
+  async delete(id: number) {
+    const todo = await this.todosRepository.findOne({
+      relations: { user: true },
+      where: { id },
+    });
+
+    console.log(todo);
+
+    if (!todo) {
+      throw new BadRequestException('todo를 찾을 수 없습니다.');
+    }
+
+    const result = await this.todosRepository.delete(todo.id);
+
+    return todo;
   }
 
   update(todo: Todo) {

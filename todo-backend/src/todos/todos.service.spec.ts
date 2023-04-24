@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TodosService } from './todos.service';
 import { Repository } from 'typeorm';
-import { Todo } from './todo.entity';
+import { Status, Todo } from './todo.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from 'src/users/user.entity';
 
@@ -37,7 +37,7 @@ describe('TodosService', () => {
 
   it('SUCCESS: 모든 todo을 반환한다.', async () => {
     todosRepository.find.mockResolvedValue([
-      { id: 1, title: 'test', isStatus: 'todo' },
+      { id: 1, title: 'test', isStatus: Status.TODO },
     ]);
     const todos = await service.findAll();
     expect(todos.length).not.toEqual(0);
@@ -45,8 +45,8 @@ describe('TodosService', () => {
 
   it('SUCCESS: id에 해당하는 todo를 반환한다.', async () => {
     const id = 1;
-    const todo = { id, title: 'test', isStatus: 'todo' };
-    todosRepository.findOneBy.mockResolvedValue(todo);
+    const todo = { id, title: 'test', isStatus: Status.TODO };
+    todosRepository.find.mockResolvedValue([todo]);
     const result = await service.findOne(id);
 
     expect(result).toBeDefined();
@@ -105,7 +105,7 @@ describe('TodosService', () => {
     const id = 1;
     const title = 'test';
     const content = 'test';
-    const todo = { id, title, content, isStatus: 'todo' };
+    const todo = { id, title, content, isStatus: Status.TODO };
     todosRepository.update.mockResolvedValue(todo);
     const result = await service.update(todo as Todo);
     expect(result).toBeDefined();

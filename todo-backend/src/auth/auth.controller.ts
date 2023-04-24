@@ -81,8 +81,8 @@ export class AuthController {
   @ApiResponse({ status: 201, description: '로그아웃 되었습니다.' })
   @Post('signout')
   signout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
+    res.cookie('access_token', '', { maxAge: 0 });
+    res.cookie('refresh_token', '', { maxAge: 0 });
     return '로그아웃 되었습니다.';
   }
 

@@ -1,4 +1,10 @@
-import { createTodo, getTodos, signIn, signUp, updataTodo } from "@/lib/api";
+import {
+  createTodo,
+  getTodos,
+  signIn,
+  signUp,
+  updataTodo,
+} from "@/lib/api/api";
 import { CreateTodoDto, updateTodoDto } from "@/types/todo";
 import { UserDto } from "@/types/user";
 import { useToast } from "@chakra-ui/react";

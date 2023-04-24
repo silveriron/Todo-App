@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getAccessToken } from "@/lib/api";
+import { getAccessToken } from "@/lib/api/api";
 import { useRouter } from "next/router";
 
 const Main = () => {

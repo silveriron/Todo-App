@@ -4,14 +4,14 @@ import { Status } from "@/types/status";
 import { Todo } from "@/types/todo";
 import TodoItem from "./TodoItem/TodoItem";
 
-interface DoneListProps {
+interface InProgressListProps {
   items: Todo[] | undefined;
 }
 
-const DoneList = ({ items }: DoneListProps) => {
+const InProgressList = ({ items }: InProgressListProps) => {
   return (
     <section className="w-[19.8%]">
-      <StatusBox type={Status.DONE} />
+      <StatusBox type={Status.IN_PROGRESS} />
       <ul>
         {items?.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
@@ -21,4 +21,4 @@ const DoneList = ({ items }: DoneListProps) => {
   );
 };
 
-export default DoneList;
+export default InProgressList;

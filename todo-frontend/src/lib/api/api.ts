@@ -1,4 +1,4 @@
-import { CreateTodoDto, Todo, updateTodoDto } from "@/types/todo";
+import { CreateTodoDto, Todo, UpdateTodoDto } from "@/types/todo";
 import { UserDto } from "@/types/user";
 import axios from "axios";
 
@@ -32,10 +32,11 @@ export const createTodo = async (data: CreateTodoDto) => {
 };
 
 export const getTodos = async () => {
-  return await instance.get<Todo[]>("/todos");
+  const res = await instance.get<Todo[]>("/todos");
+  return res.data;
 };
 
-export const updataTodo = async (id: number, data: updateTodoDto) => {
+export const updataTodo = async (id: number, data: UpdateTodoDto) => {
   return await instance.put<Todo>(`/todos/${id}`, data);
 };
 

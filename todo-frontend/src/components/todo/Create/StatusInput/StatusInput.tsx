@@ -1,34 +1,31 @@
 import { useState } from "react";
 import StatusBox from "@/components/todo/StatusBox";
 import { Status } from "@/types/status";
+import { useRecoilState } from "recoil";
+import { Todo } from "@/store/atoms/Todo";
 
 const StatusInput = () => {
-  const [todoStatus, setTodoStatus] = useState<Status>(Status.TODO);
+  const [todo, setTodo] = useRecoilState(Todo);
   const [isShowStatus, setIsShowStatus] = useState<boolean>(false);
 
   const ShowStatusHandler = () => {
     setIsShowStatus((prev) => !prev);
   };
 
-  const statusTodoHandler = () => {
-    setTodoStatus(Status.TODO);
-    setIsShowStatus((prev) => !prev);
-  };
+  const statusHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const status = e.currentTarget.dataset.set as Status;
 
-  const statusInProgressHandler = () => {
-    setTodoStatus(Status.IN_PROGRESS);
-    setIsShowStatus((prev) => !prev);
-  };
+    setTodo((prev) => ({ ...prev, isStatus: status }));
 
-  const statusDoneHandler = () => {
-    setTodoStatus(Status.DONE);
+    console.log(todo);
+
     setIsShowStatus((prev) => !prev);
   };
 
   const status =
-    todoStatus === Status.TODO ? (
+    todo.isStatus === Status.TODO ? (
       <StatusBox type={Status.TODO}>Todo</StatusBox>
-    ) : todoStatus === Status.IN_PROGRESS ? (
+    ) : todo.isStatus === Status.IN_PROGRESS ? (
       <StatusBox type={Status.IN_PROGRESS}>In Progress</StatusBox>
     ) : (
       <StatusBox type={Status.DONE}>Done</StatusBox>
@@ -40,13 +37,17 @@ const StatusInput = () => {
       </button>
       {isShowStatus && (
         <div className="flex flex-col gap-2 absolute z-10 top-8">
-          <button type="button" onClick={statusTodoHandler}>
+          <button type="button" data-set={Status.TODO} onClick={statusHandler}>
             <StatusBox type={Status.TODO}>Todo</StatusBox>
           </button>
-          <button type="button" onClick={statusInProgressHandler}>
+          <button
+            type="button"
+            data-set={Status.IN_PROGRESS}
+            onClick={statusHandler}
+          >
             <StatusBox type={Status.IN_PROGRESS}>In Progress</StatusBox>
           </button>
-          <button type="button" onClick={statusDoneHandler}>
+          <button type="button" data-set={Status.DONE} onClick={statusHandler}>
             <StatusBox type={Status.DONE}>Done</StatusBox>
           </button>
         </div>

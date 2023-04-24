@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import Text from "../../../typography/Text";
 import Logout from "./icons/Logout";
-import { signOut } from "@/lib/api";
+import { signOut } from "@/lib/api/api";
 import { useRouter } from "next/router";
 
 const LogoutButton = () => {

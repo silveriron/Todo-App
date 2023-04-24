@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Transform } from 'class-transformer';
-import { User } from 'src/users/user.entity';
+import { Status } from '../todo.entity';
 
 export class TodoDto {
   @ApiProperty({
@@ -26,7 +26,7 @@ export class TodoDto {
     description: '할 일 상태',
   })
   @Expose()
-  isStatus: 'todo' | 'doing' | 'done';
+  isStatus: Status.TODO;
   @ApiProperty({
     example: 1,
     description: '할 일을 생성한 사용자 고유 ID',

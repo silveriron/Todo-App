@@ -34,6 +34,8 @@ describe('AuthService', () => {
       ],
     }).compile();
 
+    process.env.JWT_SECRET = 'test';
+
     service = module.get<AuthService>(AuthService);
     usersService = module.get<UsersService>(UsersService);
   });

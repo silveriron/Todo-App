@@ -102,6 +102,6 @@ describe('AuthController', () => {
   it('SUCCESS: 로그아웃', async () => {
     controller.signout(response);
 
-    expect(response.clearCookie).toBeCalledTimes(2);
+    expect(response.cookie).toBeCalledTimes(2);
   });
 });

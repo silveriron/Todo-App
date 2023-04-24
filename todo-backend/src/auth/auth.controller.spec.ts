@@ -102,11 +102,6 @@ describe('AuthController', () => {
   it('SUCCESS: 로그아웃', async () => {
     controller.signout(response);
 
-    expect(response.cookie).toHaveBeenCalledWith('access_token', null, {
-      maxAge: 0,
-    });
-    expect(response.cookie).toHaveBeenCalledWith('refresh_token', null, {
-      maxAge: 0,
-    });
+    expect(response.clearCookie).toBeCalledTimes(2);
   });
 });

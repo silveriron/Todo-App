@@ -3,6 +3,7 @@ import { TodosService } from './todos.service';
 import { Repository } from 'typeorm';
 import { Todo } from './todo.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { User } from 'src/users/user.entity';
 
 const mockRepository = () => ({
   find: jest.fn(),
@@ -75,22 +76,24 @@ describe('TodosService', () => {
   it('SUCCESS: todo를 만든다.', async () => {
     const title = 'test';
     const content = 'test';
-    const userId = 1;
+    const user = {
+      id: 1,
+      email: 'test@test.com',
+      userName: 'test',
+    } as User;
 
     const newTodo = {
       id: 1,
       title,
       content,
       completed: false,
-      user: {
-        id: userId,
-      },
+      user,
     };
     todosRepository.create.mockReturnValue(newTodo);
 
     todosRepository.save.mockResolvedValue(newTodo);
 
-    const todo = await service.create({ title, content, userId });
+    const todo = await service.create({ title, content, user });
 
     expect(todo).toBeDefined();
     expect(todo.id).toEqual(1);

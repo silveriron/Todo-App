@@ -127,4 +127,17 @@ export class AuthService {
       });
     }
   }
+  async getKakaoUserInfo(access_token: string) {
+    const res = await axios.get('https://kapi.kakao.com/v2/user/me', {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    return res.data;
+  }
+
+  async findUserByKakaoId(id: number) {
+    return await this.usersService.findOneById(id);
+  }
 }

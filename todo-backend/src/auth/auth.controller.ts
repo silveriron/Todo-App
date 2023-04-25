@@ -120,7 +120,14 @@ export class AuthController {
   @Post('kakao')
   async kakaoLogin(@Body() body: { code: string }) {
     const { code } = body;
-    const token = await this.authService.getKakaoToken(code);
-    console.log(token);
+    const { access_token, refresh_token } =
+      await this.authService.getKakaoToken(code);
+
+    const userInfo = await this.authService.getKakaoUserInfo(access_token);
+
+    const user = await this.authService.findUserByKakaoId(userInfo.id);
+
+    if (user) {
+    }
   }
 }

@@ -5,6 +5,9 @@ import {
   Res,
   Req,
   UnauthorizedException,
+  Get,
+  Query,
+  Redirect,
 } from '@nestjs/common';
 import { CookieOptions, Request, Response } from 'express';
 import { AuthService } from './auth.service';
@@ -112,5 +115,12 @@ export class AuthController {
     res.cookie('refresh_token', refresh_token, refresh_token_options);
 
     return '토큰이 재발급 되었습니다.';
+  }
+
+  @Post('kakao')
+  async kakaoLogin(@Body() body: { code: string }) {
+    const { code } = body;
+    const token = await this.authService.getKakaoToken(code);
+    console.log(token);
   }
 }

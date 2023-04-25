@@ -8,6 +8,7 @@ import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
+import axios from 'axios';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const bcrypt = require('bcrypt');
 
@@ -99,5 +100,31 @@ export class AuthService {
     return {
       access_token,
     };
+  }
+
+  async getKakaoToken(code: string) {
+    try {
+      const res = await axios.post(
+        'https://kauth.kakao.com/oauth/token',
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+          },
+          params: {
+            grant_type: 'authorization_code',
+            client_id: process.env.KAKAO_CLIENT_ID,
+            redirect_uri: 'http://localhost:3000/auth/kakao/callback',
+            code,
+          },
+        },
+      );
+      return res.data;
+    } catch (e) {
+      console.log(e);
+      throw new BadRequestException({
+        message: '카카오 로그인에 실패했습니다.',
+      });
+    }
   }
 }

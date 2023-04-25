@@ -23,6 +23,10 @@ export const signOut = async () => {
   return await instance.post("/auth/signout");
 };
 
+export const kakaoSignin = async (code: string) => {
+  return await instance.post("/auth/kakao", { code });
+};
+
 export const getAccessToken = async () => {
   return await instance.post("/auth/refresh");
 };

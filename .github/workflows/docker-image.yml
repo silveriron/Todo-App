@@ -13,7 +13,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
-      - run : cd todo-backend
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1 # buildx 설정
@@ -32,3 +31,5 @@ jobs:
           tags: ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:latest
           cache-from: type=gha # Guthub Actions 용 캐시
           cache-to: type=gha,mode=max
+          working-directory: ./my-folder
+          

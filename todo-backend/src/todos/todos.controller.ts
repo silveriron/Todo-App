@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -86,7 +87,15 @@ export class TodosController {
   @ApiQuery({ name: 'id', type: Number, required: true })
   @Delete('/:id')
   async delete(@Param('id') id: string) {
-    return await this.todosService.delete(parseInt(id, 10));
+    const todo = await this.todosService.findOne(parseInt(id, 10));
+
+    if (!todo) {
+      throw new BadRequestException('Todo를 찾을 수 없습니다.');
+    }
+
+    await this.todosService.delete(parseInt(id, 10));
+
+    return todo;
   }
 
   @ApiOperation({ summary: 'Todo 수정' })
@@ -96,11 +105,17 @@ export class TodosController {
   @ApiQuery({ name: 'id', type: Number, required: true })
   @ApiBody({ type: CreateTodoDto })
   @Patch('/:id')
-  async update(@Param('id') id: string, @Body() body: Partial<CreateTodoDto>) {
+  async update(@Param('id') id: string, @Body() body: CreateTodoDto) {
     const todo = await this.todosService.findOne(parseInt(id, 10));
+
+    if (!todo) {
+      throw new BadRequestException('Todo를 찾을 수 없습니다.');
+    }
 
     const newTodo = { ...todo, ...body };
 
-    return await this.todosService.update(newTodo);
+    await this.todosService.update(newTodo);
+
+    return todo;
   }
 }

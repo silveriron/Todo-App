@@ -14,7 +14,7 @@ const InProgressList = ({ items }: InProgressListProps) => {
       <StatusBox type={Status.IN_PROGRESS} />
       <ul>
         {items?.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem key={todo.id} item={todo} />
         ))}
       </ul>
     </section>

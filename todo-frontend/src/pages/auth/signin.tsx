@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import LinkButton from "@/components/auth/LinkButton";
 import SubmitButton from "@/components/auth/SubmitButton";
+import { AxiosError } from "axios";
 
 const Signin = () => {
   const methods = useForm({
@@ -20,6 +21,9 @@ const Signin = () => {
   const { mutate } = useMutation(signIn, {
     onSuccess: () => {
       router.push("/todo");
+    },
+    onError: (error: any) => {
+      console.log(error.response.data.message);
     },
   });
 

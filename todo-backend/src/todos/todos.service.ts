@@ -60,20 +60,7 @@ export class TodosService {
   }
 
   async delete(id: number) {
-    const todo = await this.todosRepository.findOne({
-      relations: { user: true },
-      where: { id },
-    });
-
-    console.log(todo);
-
-    if (!todo) {
-      throw new BadRequestException('todo를 찾을 수 없습니다.');
-    }
-
-    const result = await this.todosRepository.delete(todo.id);
-
-    return todo;
+    return await this.todosRepository.delete(id);
   }
 
   update(todo: Todo) {

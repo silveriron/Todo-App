@@ -14,7 +14,7 @@ const TodoList = ({ items }: TodoListProps) => {
       <StatusBox type={Status.TODO} />
       <ul>
         {items?.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem key={todo.id} item={todo} />
         ))}
       </ul>
     </section>

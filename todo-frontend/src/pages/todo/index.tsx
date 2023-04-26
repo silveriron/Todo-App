@@ -15,8 +15,6 @@ const Index = () => {
     queryFn: getTodos,
   });
 
-  console.log(data);
-
   const todo = data?.filter((todo) => todo.isStatus === Status.TODO);
 
   const inprogress = data?.filter(

@@ -6,8 +6,8 @@ import StatusContainer from "@/components/todo/Create/StatusContainer/StatusCont
 import NameContainer from "@/components/todo/Create/NameContainer/NameContainer";
 import { FormProvider, useForm } from "react-hook-form";
 import { Todo } from "@/store/atoms/Todo";
-import { useMutation } from "@tanstack/react-query";
-import { createTodo } from "@/lib/api/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createTodo, updateTodo } from "@/lib/api/api";
 
 const Editor = React.lazy(
   () => import("@/components/todo/Create/Editor/Editor")
@@ -19,12 +19,19 @@ const CreateTodoSideMenu = () => {
   const todo = useRecoilValue(Todo);
   const [isCreateTodoMenu, setIsCreateTodo] =
     useRecoilState(createTodoMenuState);
-  const { mutate } = useMutation(createTodo, {
+  const queryClient = useQueryClient();
+  const { mutate: createMutate } = useMutation(createTodo, {
     onSuccess: () => {
-      console.log("success");
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
     onError: () => {
       console.log("error");
+    },
+  });
+
+  const { mutate: updateMutate } = useMutation(updateTodo, {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
@@ -33,7 +40,7 @@ const CreateTodoSideMenu = () => {
       setInit(true);
     }
     methods.setValue("title", todo.title);
-  }, []);
+  }, [methods, todo.title]);
 
   const w = isCreateTodoMenu ? "w-[40%]" : "w-[0px]";
 
@@ -43,10 +50,15 @@ const CreateTodoSideMenu = () => {
 
   const onSubmit = (data: any) => {
     const { title } = data;
-    const { content, isStatus } = todo;
+    const { content, isStatus, id } = todo;
 
-    console.log(title, content, isStatus);
-    mutate({ title, content, isStatus });
+    console.log(title, content, isStatus, id);
+
+    if (id > 0) {
+      updateMutate({ id, title, content, isStatus });
+    } else {
+      createMutate({ title, content, isStatus });
+    }
   };
 
   return (
@@ -73,7 +85,7 @@ const CreateTodoSideMenu = () => {
               {/* <NameContainer /> */}
             </div>
             {init && <Editor />}
-            <button>저장</button>
+            <button>{todo.id > 0 ? "수정" : "저장"}</button>
           </form>
         </FormProvider>
       </div>

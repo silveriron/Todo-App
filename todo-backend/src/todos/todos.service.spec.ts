@@ -76,6 +76,7 @@ describe('TodosService', () => {
   it('SUCCESS: todo를 만든다.', async () => {
     const title = 'test';
     const content = 'test';
+    const isStatus = Status.TODO;
     const user = {
       id: 1,
       email: 'test@test.com',
@@ -93,7 +94,7 @@ describe('TodosService', () => {
 
     todosRepository.save.mockResolvedValue(newTodo);
 
-    const todo = await service.create({ title, content, user });
+    const todo = await service.create({ title, content, user, isStatus });
 
     expect(todo).toBeDefined();
     expect(todo.id).toEqual(1);

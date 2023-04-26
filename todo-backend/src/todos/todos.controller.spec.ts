@@ -95,6 +95,7 @@ describe('TodosController', () => {
     const todo = await controller.update('1', {
       title: 'test',
       content: 'test',
+      isStatus: Status.TODO,
     });
     expect(todo).toBeDefined();
   });

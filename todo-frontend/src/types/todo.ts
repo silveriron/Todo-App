@@ -15,7 +15,8 @@ export interface CreateTodoDto {
 }
 
 export interface UpdateTodoDto {
-  title?: string;
-  content?: string;
-  isStatus?: Status;
+  id: number;
+  title: string;
+  content: string;
+  isStatus: Status;
 }

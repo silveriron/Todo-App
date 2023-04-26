@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: tests
 
 on:
   push:
@@ -9,12 +9,16 @@ on:
     branches: [ "main" ]
     paths:
       - 'todo-backend/**'
-    
-    
-
-
+  
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run : cd todo-backend && yarn install && npm run test
+
   docker:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,7 +40,7 @@ jobs:
           file: ./todo-backend/Dockerfile
           push: true
           tags: ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:latest
-#           cache-from: type=gha # Guthub Actions 용 캐시
-#           cache-to: type=gha,mode=max
+          cache-from: type=gha # Guthub Actions 용 캐시
+          cache-to: type=gha,mode=max
           
           

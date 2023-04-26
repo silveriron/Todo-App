@@ -10,6 +10,7 @@ async function bootstrap() {
     origin: ['http://localhost:3000'],
     credentials: true,
   });
+
   const config = new DocumentBuilder()
     .setTitle('Todo App Api')
     .setDescription('The Todo App API description')

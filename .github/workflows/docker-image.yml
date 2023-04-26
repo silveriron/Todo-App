@@ -18,6 +18,9 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2 # buildx 설정
+      
+      - 
+        run : cd /todo-backend
       -
         name: Login to DockerHub
         uses: docker/login-action@v1

@@ -15,8 +15,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
-        with:
-          -path: todo-backend
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1 # buildx 설정
@@ -30,6 +28,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2 # build-push-action 사용
         with:
+          file: ./todo-backend/Dockfile
           context: .
           push: true
           tags: ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:latest

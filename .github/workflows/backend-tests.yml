@@ -1,0 +1,13 @@
+name: tests
+
+on:
+  pull_request:
+    paths:
+      - 'todo-backend/**'
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run : cd todo-backend && yarn install && npm run test

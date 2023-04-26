@@ -32,7 +32,7 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:latest
-          cache-from: type=gha # Guthub Actions 용 캐시
-          cache-to: type=gha,mode=max
+#           cache-from: type=gha # Guthub Actions 용 캐시
+#           cache-to: type=gha,mode=max
           
           

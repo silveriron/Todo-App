@@ -1,4 +1,4 @@
-name: tests
+name: backend-CICD
 
 on:
   push:
@@ -9,6 +9,10 @@ on:
     branches: [ "main" ]
     paths:
       - 'todo-backend/**'
+
+env:
+  DOCKER_IMAGE: ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:latest
+  NAME: todo-backend
   
 jobs:
   test:
@@ -39,8 +43,23 @@ jobs:
           context: ./todo-backend
           file: ./todo-backend/Dockerfile
           push: true
-          tags: ${{ secrets.REGISTRY }}/${{ secrets.IMAGE_NAME }}:latest
+          tags: ${{env.DOCKER_IMAGE}}}
           cache-from: type=gha # Guthub Actions 용 캐시
           cache-to: type=gha,mode=max
-          
+  deploy:
+    needs: docker  # build 후에 실행되도록 정의
+    name: Deploy
+    runs-on: [ self-hosted ] # AWS ./configure에서 사용할 label명
+    steps:
+      - name: Login to ghcr
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # 3000 -> 80 포트로 수행하도록 지정
+      - name: Docker run
+        run: |
+          docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}
+          docker run -d -p 3001:3001 --name ${{env.NAME}} --restart always ${{ env.DOCKER_IMAGE }}
           

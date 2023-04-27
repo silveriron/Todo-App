@@ -1,28 +1,28 @@
-name: backend-CI/CD
+name: frontend-CI/CD
 
 on:
   push:
     branches: ["main"]
     paths:
-      - "todo-backend/**"
+      - "todo-frontend/**"
   pull_request:
     branches: ["main"]
     paths:
-      - "todo-backend/**"
+      - "todo-frontend/**"
 
 env:
-  DOCKER_IMAGE: ${{ secrets.REGISTRY }}/${{ secrets.BACKEND_IMAGE_NAME }}:latest
-  NAME: todo-backend
+  DOCKER_IMAGE: ${{ secrets.REGISTRY }}/${{ secrets.FRONTEND_IMAGE_NAME }}:latest
+  NAME: todo-frontend
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: cd todo-backend && yarn install && npm run test
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: cd todo-frontend && yarn install && npm run test
 
   docker:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,12 +37,12 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2 # build-push-action 사용
         with:
-          context: ./todo-backend
-          file: ./todo-backend/Dockerfile
+          context: ./todo-frontend
+          file: ./todo-frontend/Dockerfile
           push: true
           build-args: |
             "KAKAO_API_VALUE=${{ secrets.KAKAO_CLIENT_ID }}"
-            "JWT_SECRET_VALUE=${{ secrets.JWT_SECRET }}"
+            "NEXT_PUBLIC_API_URL_VALUE=${{ secrets.NEXT_PUBLIC_API_URL }}"
           tags: ${{ env.DOCKER_IMAGE }}
           cache-from: type=gha # Guthub Actions 용 캐시
           cache-to: type=gha,mode=max

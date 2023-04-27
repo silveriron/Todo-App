@@ -16,8 +16,6 @@ const CreateTodoForm = () => {
   const [todo, setTodo] = useRecoilState(Todo);
   const methods = useForm();
 
-  console.log(todo);
-
   const queryClient = useQueryClient();
   const { mutate: createMutate } = useMutation(createTodo, {
     onSuccess: () => {

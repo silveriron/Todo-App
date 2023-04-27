@@ -27,7 +27,7 @@ POST http://localhost:3001/api/v1/auth/refresh
 GET http://localhost:3001/api/v1/todos
 
 ### id로 todo 조회
-GET http://localhost:3001/api/v1/todos/3
+GET http://localhost:3001/api/v1/todos/21
 
 ### 유저의 todo 조회
 GET http://localhost:3001/api/v1/todos/user

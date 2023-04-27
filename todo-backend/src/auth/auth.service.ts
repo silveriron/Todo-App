@@ -114,7 +114,8 @@ export class AuthService {
           params: {
             grant_type: 'authorization_code',
             client_id: process.env.KAKAO_CLIENT_ID,
-            redirect_uri: 'http://localhost:3000/auth/kakao/callback',
+            redirect_uri:
+              'http://ec2-52-78-166-75.ap-northeast-2.compute.amazonaws.com/auth/kakao/callback',
             code,
           },
         },

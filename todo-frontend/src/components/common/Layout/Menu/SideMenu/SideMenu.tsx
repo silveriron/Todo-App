@@ -5,7 +5,6 @@ import { menuState } from "@/store/atoms/menuState";
 import Text from "@/components/common/typography/Text";
 import { useMutation } from "@tanstack/react-query";
 import { signOut } from "@/lib/api/api";
-import { useRouter } from "next/router";
 
 const SideMenu = () => {
   const [isMenu, SetIsMenu] = useRecoilState(menuState);

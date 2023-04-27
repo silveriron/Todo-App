@@ -36,8 +36,6 @@ export class TodosService {
       where: { user: { id: userId } },
     });
 
-    console.log(todos);
-
     return todos;
   }
 

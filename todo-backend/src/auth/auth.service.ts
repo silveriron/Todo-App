@@ -121,7 +121,6 @@ export class AuthService {
       );
       return res.data;
     } catch (e) {
-      console.log(e);
       throw new BadRequestException({
         message: '카카오 로그인에 실패했습니다.',
       });
@@ -137,7 +136,7 @@ export class AuthService {
     return res.data;
   }
 
-  async findUserByKakaoId(id: number) {
-    return await this.usersService.findOneById(id);
+  async findUserByKakaoId(email: string) {
+    return await this.usersService.findOne(email);
   }
 }

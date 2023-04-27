@@ -33,7 +33,10 @@ export class TodosService {
   async findByUserId(userId: number): Promise<Todo[]> {
     const todos = await this.todosRepository.find({
       relations: { user: true },
+      where: { user: { id: userId } },
     });
+
+    console.log(todos);
 
     return todos;
   }

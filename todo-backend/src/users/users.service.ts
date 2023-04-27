@@ -17,10 +17,6 @@ export class UsersService {
     return this.usersRepository.findOneBy({ email });
   }
 
-  findOneById(id: number): Promise<User | null> {
-    return this.usersRepository.findOneBy({ id });
-  }
-
   async createUser({
     email,
     userName,
@@ -39,6 +35,18 @@ export class UsersService {
     const user = await this.usersRepository.save(newUser);
     return user;
   }
+
+  async createKaKaoUser({
+    id,
+    email,
+    userName,
+    password,
+  }: {
+    id: number;
+    email: string;
+    userName: string;
+    password: string;
+  }) {}
 
   async updateRefreshToken(email: string, refresh_token: string) {
     const user = await this.findOne(email);

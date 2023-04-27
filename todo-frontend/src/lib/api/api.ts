@@ -40,6 +40,11 @@ export const getTodos = async () => {
   return res.data;
 };
 
+export const getUserTodos = async () => {
+  const res = await instance.get<Todo[]>("/todos/user");
+  return res.data;
+};
+
 export const updataTodo = async (id: number, data: UpdateTodoDto) => {
   return await instance.put<Todo>(`/todos/${id}`, data);
 };

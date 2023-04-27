@@ -6,7 +6,11 @@ import React, { useEffect } from "react";
 const Callback = () => {
   const router = useRouter();
   const code = router.query.code;
-  const { mutate } = useMutation(kakaoSignin);
+  const { mutate } = useMutation(kakaoSignin, {
+    onSuccess: () => {
+      router.push("/todo");
+    },
+  });
 
   useEffect(() => {
     if (code && typeof code === "string") {

@@ -1,5 +1,5 @@
 import React from "react";
-import { getTodos } from "@/lib/api/api";
+import { getUserTodos } from "@/lib/api/api";
 import { useQuery } from "@tanstack/react-query";
 import Title from "@/components/common/typography/Title";
 import Line from "@/components/todo/Line";
@@ -12,7 +12,7 @@ import { Status } from "@/types/status";
 const Index = () => {
   const { isLoading, isError, data } = useQuery({
     queryKey: ["todos"],
-    queryFn: getTodos,
+    queryFn: getUserTodos,
   });
 
   const todo = data?.filter((todo) => todo.isStatus === Status.TODO);

@@ -54,6 +54,7 @@ export class TodosController {
   @Get('/user')
   async findByUserId(@Req() req: Request) {
     const userId = req.user.id;
+
     return await this.todosService.findByUserId(userId);
   }
 

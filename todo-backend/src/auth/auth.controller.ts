@@ -5,6 +5,9 @@ import {
   Res,
   Req,
   UnauthorizedException,
+  Get,
+  Query,
+  Redirect,
 } from '@nestjs/common';
 import { CookieOptions, Request, Response } from 'express';
 import { AuthService } from './auth.service';
@@ -112,5 +115,47 @@ export class AuthController {
     res.cookie('refresh_token', refresh_token, refresh_token_options);
 
     return '토큰이 재발급 되었습니다.';
+  }
+
+  @Post('kakao')
+  async kakaoLogin(
+    @Body() body: { code: string },
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { code } = body;
+    const { access_token, refresh_token } =
+      await this.authService.getKakaoToken(code);
+
+    const userInfo = await this.authService.getKakaoUserInfo(access_token);
+
+    const user = await this.authService.findUserByKakaoId(
+      userInfo.kakao_account.email,
+    );
+
+    if (user) {
+      const { access_token, refresh_token } =
+        await this.authService.createToken(user);
+
+      res.cookie('access_token', access_token, access_token_options);
+      res.cookie('refresh_token', refresh_token, refresh_token_options);
+
+      return user;
+    }
+
+    if (!user) {
+      const newUser = await this.authService.signup({
+        email: userInfo.kakao_account.email,
+        userName: userInfo.kakao_account.profile.nickname,
+        password: userInfo.id.toString(),
+      });
+
+      const { access_token, refresh_token } =
+        await this.authService.createToken(newUser);
+
+      res.cookie('access_token', access_token, access_token_options);
+      res.cookie('refresh_token', refresh_token, refresh_token_options);
+
+      return newUser;
+    }
   }
 }

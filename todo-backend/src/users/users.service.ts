@@ -36,6 +36,18 @@ export class UsersService {
     return user;
   }
 
+  async createKaKaoUser({
+    id,
+    email,
+    userName,
+    password,
+  }: {
+    id: number;
+    email: string;
+    userName: string;
+    password: string;
+  }) {}
+
   async updateRefreshToken(email: string, refresh_token: string) {
     const user = await this.findOne(email);
     if (!user) {

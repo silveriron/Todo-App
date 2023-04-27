@@ -7,6 +7,7 @@ import { User } from 'src/users/user.entity';
 
 const mockRepository = () => ({
   find: jest.fn(),
+  findOne: jest.fn(),
   findOneBy: jest.fn(),
   create: jest.fn(),
   save: jest.fn(),
@@ -94,7 +95,12 @@ describe('TodosService', () => {
 
     todosRepository.save.mockResolvedValue(newTodo);
 
-    const todo = await service.create({ title, content, user, isStatus });
+    const todo = await service.create({
+      title,
+      content,
+      user,
+      isStatus: Status.TODO,
+    });
 
     expect(todo).toBeDefined();
     expect(todo.id).toEqual(1);
@@ -115,6 +121,8 @@ describe('TodosService', () => {
   it('SUCCESS: todo를 삭제한다.', async () => {
     const id = 1;
     const todo = { id, title: 'test', completed: false };
+    todosRepository.findOne.mockResolvedValue(todo);
+
     todosRepository.delete.mockResolvedValue(todo);
     const result = await service.delete(id);
     expect(result).toBeDefined();

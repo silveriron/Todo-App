@@ -23,6 +23,10 @@ export const signOut = async () => {
   return await instance.post("/auth/signout");
 };
 
+export const kakaoSignin = async (code: string) => {
+  return await instance.post("/auth/kakao", { code });
+};
+
 export const getAccessToken = async () => {
   return await instance.post("/auth/refresh");
 };
@@ -36,8 +40,13 @@ export const getTodos = async () => {
   return res.data;
 };
 
-export const updateTodo = async (data: UpdateTodoDto) => {
-  return await instance.patch<Todo>(`/todos/${data.id}`, data);
+export const getUserTodos = async () => {
+  const res = await instance.get<Todo[]>("/todos/user");
+  return res.data;
+};
+
+export const updataTodo = async (id: number, data: UpdateTodoDto) => {
+  return await instance.put<Todo>(`/todos/${id}`, data);
 };
 
 export const deleteTodo = async (id: number) => {

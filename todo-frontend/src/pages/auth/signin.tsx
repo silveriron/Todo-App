@@ -7,10 +7,9 @@ import { signinSchema } from "@/lib/formSchema";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/lib/api/api";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import LinkButton from "@/components/auth/LinkButton";
 import SubmitButton from "@/components/auth/SubmitButton";
-import { AxiosError } from "axios";
+import KaKaoLogin from "@/components/auth/kakao/KaKaoLogin";
 
 const Signin = () => {
   const methods = useForm({
@@ -50,6 +49,7 @@ const Signin = () => {
             placeholder="Enter your password"
           />
           <SubmitButton>Submit</SubmitButton>
+          <KaKaoLogin />
           <LinkButton href="/auth/signup">sign up</LinkButton>
         </form>
       </div>

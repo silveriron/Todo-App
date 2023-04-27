@@ -8,7 +8,7 @@ const LogoutButton = () => {
   const router = useRouter();
   const mutation = useMutation(signOut, {
     onSuccess: () => {
-      router.push("/auth/signin");
+      window.location.href = "/auth/signin";
     },
   });
 

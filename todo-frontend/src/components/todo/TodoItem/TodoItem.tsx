@@ -38,6 +38,7 @@ const TodoItem = ({ item }: TodoItemProps) => {
 
   const hideButtonHandler = () => {
     setIsShowButton(false);
+    setIsShowMenu(false);
   };
 
   const toggleMenuHandler = (e: React.MouseEvent<HTMLButtonElement>) => {

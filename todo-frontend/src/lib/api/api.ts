@@ -45,8 +45,8 @@ export const getUserTodos = async () => {
   return res.data;
 };
 
-export const updataTodo = async (id: number, data: UpdateTodoDto) => {
-  return await instance.put<Todo>(`/todos/${id}`, data);
+export const updateTodo = async (data: UpdateTodoDto) => {
+  return await instance.patch<Todo>(`/todos/${data.id}`, data);
 };
 
 export const deleteTodo = async (id: number) => {

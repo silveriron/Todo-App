@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StatusBox from "@/components/todo/StatusBox";
 import { Status } from "@/types/status";
 import { useRecoilState } from "recoil";
@@ -16,8 +16,6 @@ const StatusInput = () => {
     const status = e.currentTarget.dataset.set as Status;
 
     setTodo((prev) => ({ ...prev, isStatus: status }));
-
-    console.log(todo);
 
     setIsShowStatus((prev) => !prev);
   };

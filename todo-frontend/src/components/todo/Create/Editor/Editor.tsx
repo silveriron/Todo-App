@@ -1,7 +1,6 @@
 import { Todo } from "@/store/atoms/Todo";
 import InlineEditor from "@ckeditor/ckeditor5-build-inline";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 const Editor = () => {
@@ -15,9 +14,7 @@ const Editor = () => {
     <CKEditor
       editor={InlineEditor}
       onChange={onChangeHandler}
-      onReady={(editor) => {
-        editor.setData(todo.content);
-      }}
+      data={todo.content}
     />
   );
 };

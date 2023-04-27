@@ -7,7 +7,6 @@ import { signinSchema } from "@/lib/formSchema";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/lib/api/api";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import LinkButton from "@/components/auth/LinkButton";
 import SubmitButton from "@/components/auth/SubmitButton";
 import KaKaoLogin from "@/components/auth/kakao/KaKaoLogin";
@@ -21,6 +20,9 @@ const Signin = () => {
   const { mutate } = useMutation(signIn, {
     onSuccess: () => {
       router.push("/todo");
+    },
+    onError: (error: any) => {
+      console.log(error.response.data.message);
     },
   });
 

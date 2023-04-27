@@ -51,10 +51,9 @@ jobs:
     name: Deploy
     runs-on: [ self-hosted ] # AWS ./configure에서 사용할 label명
     steps:
-      - name: Login to ghcr
+      - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          registry: ghcr.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       # 3000 -> 80 포트로 수행하도록 지정

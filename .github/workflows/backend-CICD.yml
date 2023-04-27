@@ -43,7 +43,7 @@ jobs:
           context: ./todo-backend
           file: ./todo-backend/Dockerfile
           push: true
-          tags: ${{env.DOCKER_IMAGE}}}
+          tags: ${{ env.DOCKER_IMAGE }}
           cache-from: type=gha # Guthub Actions 용 캐시
           cache-to: type=gha,mode=max
   deploy:

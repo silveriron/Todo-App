@@ -42,7 +42,7 @@ export const getTodos = async () => {
 
 export const getUserTodos = async () => {
   const res = await instance.get<Todo[]>("/todos/user");
-  return res.data;
+  return res.data.reverse();
 };
 
 export const updateTodo = async (data: UpdateTodoDto) => {

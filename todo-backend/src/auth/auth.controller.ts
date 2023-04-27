@@ -117,6 +117,8 @@ export class AuthController {
     return '토큰이 재발급 되었습니다.';
   }
 
+  @ApiOperation({ summary: '카카오 로그인' })
+  @ApiResponse({ status: 201, type: UserDto })
   @Post('kakao')
   async kakaoLogin(
     @Body() body: { code: string },

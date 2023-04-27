@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Header from "./Header";
 import LogoutButton from "./LogoutButton";
 import { menuState } from "@/store/atoms/menuState";

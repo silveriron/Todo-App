@@ -16,9 +16,9 @@ const Callback = () => {
     if (code && typeof code === "string") {
       mutate(code);
     }
-  }, [code]);
+  }, [code, mutate]);
 
-  return <div>callback</div>;
+  return <div></div>;
 };
 
 export default Callback;

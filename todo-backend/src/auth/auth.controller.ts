@@ -90,7 +90,7 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: '토큰 재발급' })
-  @ApiResponse({ status: 201, description: '토큰이 재발급 되었습니다.' })
+  @ApiResponse({ status: 201, type: UserDto })
   @ApiResponse({ status: 400, description: '토큰이 유효하지 않습니다.' })
   @Post('refresh')
   async refresh(
@@ -114,7 +114,7 @@ export class AuthController {
     res.cookie('access_token', access_token, access_token_options);
     res.cookie('refresh_token', refresh_token, refresh_token_options);
 
-    return '토큰이 재발급 되었습니다.';
+    return user;
   }
 
   @ApiOperation({ summary: '카카오 로그인' })

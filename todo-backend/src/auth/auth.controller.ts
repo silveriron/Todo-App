@@ -95,9 +95,9 @@ export class AuthController {
   @Post('refresh')
   async refresh(
     @Res({ passthrough: true }) res: Response,
-    @Req() req: Request,
+    @Body() body: { refresh_token: string },
   ) {
-    const refresh_token = req.cookies.refresh_token;
+    const { refresh_token } = body;
 
     if (!refresh_token) {
       throw new UnauthorizedException('토큰이 유효하지 않습니다.');

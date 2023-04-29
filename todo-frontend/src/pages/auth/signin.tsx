@@ -34,10 +34,10 @@ const Signin = () => {
     <FormProvider {...methods}>
       <div className="w-screen h-screen flex justify-center items-center">
         <form
-          className="w-[26.80%] min-w-[200px] flex flex-col"
+          className="w-[26.80%] min-w-[200px] mb-28 flex flex-col"
           onSubmit={methods.handleSubmit(onSubmit)}
         >
-          <Title className="text-center mb-8">Sign in</Title>
+          <Title className="text-center mb-8">Sign In</Title>
           <Input
             name="email"
             type="email"

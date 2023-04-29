@@ -16,7 +16,7 @@ const Main = () => {
       });
   });
 
-  return <div>index</div>;
+  return <div></div>;
 };
 
 export default Main;

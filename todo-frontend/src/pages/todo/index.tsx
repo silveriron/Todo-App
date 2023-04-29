@@ -8,6 +8,7 @@ import InProgressList from "@/components/todo/InProgressList";
 import DoneList from "@/components/todo/DoneList";
 import CreateButton from "@/components/todo/CreateButton";
 import { Status } from "@/types/status";
+import Layout from "@/components/common/Layout/Layout";
 
 const Index = () => {
   const { isLoading, isError, data } = useQuery({
@@ -27,18 +28,20 @@ const Index = () => {
   if (isError) return <div>Error</div>;
 
   return (
-    <main className="w-full mt-16 px-[8.3%]">
-      <Title className="mb-3">할일 목록</Title>
-      <div className="w-full flex justify-end">
-        <CreateButton />
+    <Layout>
+      <div className="w-full mt-16 px-[8.3%]">
+        <Title className="mb-3">할일 목록</Title>
+        <div className="w-full flex justify-end">
+          <CreateButton />
+        </div>
+        <Line />
+        <div className="flex gap-5">
+          <TodoList items={todo} />
+          <InProgressList items={inprogress} />
+          <DoneList items={done} />
+        </div>
       </div>
-      <Line />
-      <div className="flex gap-5">
-        <TodoList items={todo} />
-        <InProgressList items={inprogress} />
-        <DoneList items={done} />
-      </div>
-    </main>
+    </Layout>
   );
 };
 

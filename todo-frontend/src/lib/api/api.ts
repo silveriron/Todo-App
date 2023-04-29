@@ -27,8 +27,8 @@ export const kakaoSignin = async (code: string) => {
   return await instance.post("/auth/kakao", { code });
 };
 
-export const getAccessToken = async () => {
-  return await instance.post("/auth/refresh");
+export const getAccessToken = async (refresh_token: string | undefined) => {
+  return await instance.post("/auth/refresh", { refresh_token });
 };
 
 export const createTodo = async (data: CreateTodoDto) => {

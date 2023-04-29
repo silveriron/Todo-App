@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { getUserTodos } from "@/lib/api/api";
 import { useQuery } from "@tanstack/react-query";
 import Title from "@/components/common/typography/Title";
@@ -9,12 +9,24 @@ import DoneList from "@/components/todo/DoneList";
 import CreateButton from "@/components/todo/CreateButton";
 import { Status } from "@/types/status";
 import Layout from "@/components/common/Layout/Layout";
+import { useRecoilState } from "recoil";
+import { User } from "@/store/atoms/User";
+import { GetServerSideProps } from "next";
 
-const Index = () => {
+interface UserProps {
+  userInfo: any;
+}
+
+const Index = ({ userInfo }: UserProps) => {
+  const [user, setUser] = useRecoilState(User);
   const { isLoading, isError, data } = useQuery({
     queryKey: ["todos"],
     queryFn: getUserTodos,
   });
+
+  useEffect(() => {
+    setUser(userInfo);
+  }, [setUser, userInfo]);
 
   const todo = data?.filter((todo) => todo.isStatus === Status.TODO);
 
@@ -43,6 +55,24 @@ const Index = () => {
       </div>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const user = context.req.headers.user;
+
+  if (typeof user === "string") {
+    return {
+      props: {
+        userInfo: JSON.parse(user),
+      },
+    };
+  }
+
+  return {
+    props: {
+      userInfo: null,
+    },
+  };
 };
 
 export default Index;

@@ -1,22 +1,14 @@
-import { useEffect } from "react";
-import { getAccessToken } from "@/lib/api/api";
-
 const Main = () => {
-  useEffect(() => {
-    getAccessToken()
-      .then((res) => {
-        if (res.status === 201) {
-          window.location.href = "/todo";
-        } else {
-          window.location.href = "/auth/signin";
-        }
-      })
-      .catch((err) => {
-        window.location.href = "/auth/signin";
-      });
-  });
+  return <></>;
+};
 
-  return <div></div>;
+export const getServerSideProps = async () => {
+  return {
+    props: {},
+    redirect: {
+      destination: "/todo",
+    },
+  };
 };
 
 export default Main;

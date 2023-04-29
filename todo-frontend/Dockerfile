@@ -16,6 +16,4 @@ ARG KAKAO_API_VALUE \
 ENV KAKAO_API_KEY=$KAKAO_API_VALUE  \
     NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL_VALUE
 
-RUN npm run build
-
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]

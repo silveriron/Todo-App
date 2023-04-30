@@ -8,7 +8,7 @@ export async function withAuth(req: NextRequest) {
 
     console.log(refresh_token);
 
-    const res = await fetch("http://todo-app.shop:3001/api/v1/auth/refresh", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
       method: "POST",
       body: JSON.stringify({ refresh_token }),
       headers: {

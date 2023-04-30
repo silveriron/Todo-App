@@ -7,6 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { AuthService } from '../auth/auth.service';
+import { access_token_options } from 'src/constants/cookies';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -40,11 +41,7 @@ export class AuthGuard implements CanActivate {
         await this.authService.validateRefreshToken(token.refresh_token);
 
         const { access_token } = await this.authService.getAccessToken(payload);
-        response.cookie('access_token', access_token, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 30,
-          sameSite: 'lax',
-        });
+        response.cookie('access_token', access_token, access_token_options);
       } catch {
         throw new UnauthorizedException();
       }

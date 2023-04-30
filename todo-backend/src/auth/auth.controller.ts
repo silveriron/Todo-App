@@ -12,22 +12,10 @@ import { LoginUserDto } from './dtos/login-user.dto';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { UserDto } from '../users/dtos/user-dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-
-const access_token_options: CookieOptions = {
-  httpOnly: true,
-  maxAge: 1000 * 60 * 30,
-  sameSite: 'none',
-  secure: true,
-  domain: '.todo-app.shop',
-};
-
-const refresh_token_options: CookieOptions = {
-  httpOnly: true,
-  maxAge: 1000 * 60 * 60 * 24 * 7,
-  sameSite: 'none',
-  secure: true,
-  domain: '.todo-app.shop',
-};
+import {
+  access_token_options,
+  refresh_token_options,
+} from 'src/constants/cookies';
 
 @ApiTags('auth')
 @Controller('api/v1/auth')

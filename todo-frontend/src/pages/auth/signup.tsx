@@ -25,7 +25,7 @@ const Signup = () => {
   const { isLoading, mutate } = useMutation(signUp, {
     onSuccess: (data) => {
       console.log(data);
-      router.push("/todo");
+      router.push("/");
     },
   });
 

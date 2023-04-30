@@ -19,7 +19,7 @@ const Signin = () => {
   const router = useRouter();
   const { mutate } = useMutation(signIn, {
     onSuccess: () => {
-      router.push("/todo");
+      router.push("/");
     },
     onError: (error: any) => {
       console.log(error.response.data.message);

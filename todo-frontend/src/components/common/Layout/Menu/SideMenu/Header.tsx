@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <div className="flex justify-between items-center">
-      <Text>{`${user.userName}의 할일 목록`}</Text>
+      <Text>{`${user.userName || `홍길동`}의 할일 목록`}</Text>
       <button
         onClick={toggleMenu}
         className="hover:bg-todo-color rounded-md p-0.5"

@@ -3,13 +3,9 @@ import {
   Controller,
   Post,
   Res,
-  Req,
   UnauthorizedException,
-  Get,
-  Query,
-  Redirect,
 } from '@nestjs/common';
-import { CookieOptions, Request, Response } from 'express';
+import { CookieOptions, Response } from 'express';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';

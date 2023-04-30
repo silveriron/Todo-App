@@ -14,17 +14,14 @@ export async function withAuth(req: NextRequest) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
-
-    console.log(res);
 
     if (res.status === 201) {
       const data = await res.json();
       console.log(data);
       return NextResponse.next({
         headers: {
-          user: JSON.stringify(data),
+          "Set-Cookie": `user=${JSON.stringify(data)};`,
         },
       });
     }

@@ -60,10 +60,14 @@ const Index = ({ userInfo }: UserProps) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const user = context.req.cookies.user;
 
+  console.log(JSON.parse(user!));
+
+  const userInfo = JSON.parse(user!);
+
   if (typeof user === "string") {
     return {
       props: {
-        userInfo: JSON.parse(user),
+        userInfo,
       },
     };
   }

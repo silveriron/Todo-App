@@ -17,7 +17,7 @@ interface UserProps {
   userInfo: any;
 }
 
-const Index = ({ userInfo }: UserProps) => {
+const Index = (props: any) => {
   const [user, setUser] = useRecoilState(User);
   const { isLoading, isError, data } = useQuery({
     queryKey: ["todos"],
@@ -25,8 +25,8 @@ const Index = ({ userInfo }: UserProps) => {
   });
 
   useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
+    console.log(props);
+  }, [props]);
 
   const todo = data?.filter((todo) => todo.isStatus === Status.TODO);
 

@@ -6,7 +6,9 @@ export async function withAuth(req: NextRequest) {
   try {
     const refresh_token = req.cookies.get("refresh_token")?.value;
 
-    const res = await fetch("https://todo-app.shop:8443/api/v1/auth/refresh", {
+    console.log(refresh_token);
+
+    const res = await fetch("http://todo-app.shop:3001/api/v1/auth/refresh", {
       method: "POST",
       body: JSON.stringify({ refresh_token }),
       headers: {
@@ -15,7 +17,9 @@ export async function withAuth(req: NextRequest) {
       credentials: "include",
     });
 
-    if (res.ok) {
+    console.log(res);
+
+    if (res.status === 201) {
       const data = await res.json();
       console.log(data);
       return NextResponse.next({

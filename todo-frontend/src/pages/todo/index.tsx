@@ -25,8 +25,8 @@ const Index = ({ userInfo }: UserProps) => {
   });
 
   useEffect(() => {
-    setUser(userInfo);
-  }, [setUser, userInfo]);
+    console.log(userInfo);
+  }, [userInfo]);
 
   const todo = data?.filter((todo) => todo.isStatus === Status.TODO);
 

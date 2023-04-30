@@ -23,6 +23,8 @@ const Index = () => {
     if (document.cookie) {
       const user = JSON.parse(document.cookie.split("=")[1]);
 
+      console.log(document.cookie);
+
       setUser(user);
     }
   }, [setUser]);

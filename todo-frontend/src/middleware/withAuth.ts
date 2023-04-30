@@ -19,7 +19,7 @@ export async function withAuth(req: NextRequest) {
       console.log(data);
       return NextResponse.next({
         headers: {
-          "Set-Cookie": `user=${JSON.stringify(data)};`,
+          "Set-Cookie": `user=${JSON.stringify(data)}; path=/;`,
         },
       });
     }

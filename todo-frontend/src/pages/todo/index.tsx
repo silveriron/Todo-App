@@ -58,7 +58,7 @@ const Index = ({ userInfo }: UserProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const user = context.req.headers.user;
+  const user = context.req.cookies.user;
 
   if (typeof user === "string") {
     return {

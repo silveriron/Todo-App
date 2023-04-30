@@ -13,7 +13,6 @@ export async function withoutAuth(req: NextRequest) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
 
     if (res.ok) {

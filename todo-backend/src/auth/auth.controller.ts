@@ -20,13 +20,17 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 const access_token_options: CookieOptions = {
   httpOnly: true,
   maxAge: 1000 * 60 * 30,
-  sameSite: 'lax',
+  sameSite: 'none',
+  secure: true,
+  domain: '.todo-app.shop',
 };
 
 const refresh_token_options: CookieOptions = {
   httpOnly: true,
   maxAge: 1000 * 60 * 60 * 24 * 7,
-  sameSite: 'lax',
+  sameSite: 'none',
+  secure: true,
+  domain: '.todo-app.shop',
 };
 
 @ApiTags('auth')

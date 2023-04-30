@@ -1,12 +1,28 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { Response } from 'express';
+import { CookieOptions, Response } from 'express';
 
 const mockAuthService = {
   signup: jest.fn(),
   signin: jest.fn(),
   createToken: jest.fn(),
+};
+
+const access_token_options: CookieOptions = {
+  httpOnly: true,
+  maxAge: 1000 * 60 * 30,
+  sameSite: 'none',
+  secure: true,
+  domain: '.todo-app.shop',
+};
+
+const refresh_token_options: CookieOptions = {
+  httpOnly: true,
+  maxAge: 1000 * 60 * 60 * 24 * 7,
+  sameSite: 'none',
+  secure: true,
+  domain: '.todo-app.shop',
 };
 
 const user = {
@@ -49,20 +65,12 @@ describe('AuthController', () => {
     expect(response.cookie).toHaveBeenCalledWith(
       'access_token',
       mockAccessToken,
-      {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 30,
-        sameSite: 'lax',
-      },
+      access_token_options,
     );
     expect(response.cookie).toHaveBeenCalledWith(
       'refresh_token',
       mockRefreshToken,
-      {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        sameSite: 'lax',
-      },
+      refresh_token_options,
     );
   });
 
@@ -82,20 +90,12 @@ describe('AuthController', () => {
     expect(response.cookie).toHaveBeenCalledWith(
       'access_token',
       mockAccessToken,
-      {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 30,
-        sameSite: 'lax',
-      },
+      access_token_options,
     );
     expect(response.cookie).toHaveBeenCalledWith(
       'refresh_token',
       mockRefreshToken,
-      {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        sameSite: 'lax',
-      },
+      refresh_token_options,
     );
   });
 

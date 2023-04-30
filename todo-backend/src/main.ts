@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://todo-app.shop'],
+    origin: ['http://localhost:3000', 'https://www.todo-app.shop'],
     credentials: true,
   });
 

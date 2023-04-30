@@ -6,8 +6,6 @@ export async function withAuth(req: NextRequest) {
   try {
     const refresh_token = req.cookies.get("refresh_token")?.value;
 
-    console.log(refresh_token);
-
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
       method: "POST",
       body: JSON.stringify({ refresh_token }),

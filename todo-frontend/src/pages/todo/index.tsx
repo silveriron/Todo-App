@@ -11,13 +11,8 @@ import { Status } from "@/types/status";
 import Layout from "@/components/common/Layout/Layout";
 import { useRecoilState } from "recoil";
 import { User } from "@/store/atoms/User";
-import { GetServerSideProps } from "next";
 
-interface UserProps {
-  userInfo: any;
-}
-
-const Index = (props: any) => {
+const Index = () => {
   const [user, setUser] = useRecoilState(User);
   const { isLoading, isError, data } = useQuery({
     queryKey: ["todos"],
@@ -25,8 +20,12 @@ const Index = (props: any) => {
   });
 
   useEffect(() => {
-    console.log(props);
-  }, [props]);
+    if (document.cookie) {
+      const user = JSON.parse(document.cookie.split("=")[1]);
+
+      setUser(user);
+    }
+  }, [setUser]);
 
   const todo = data?.filter((todo) => todo.isStatus === Status.TODO);
 
@@ -55,31 +54,6 @@ const Index = (props: any) => {
       </div>
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const user = context.req.cookies.user;
-
-  if (typeof user === "string") {
-    const userInfo = JSON.parse(user);
-
-    console.log(userInfo);
-    console.log(userInfo.id);
-    console.log(userInfo.userName);
-    console.log(userInfo.email);
-
-    return {
-      props: {
-        userInfo: userInfo,
-      },
-    };
-  }
-
-  return {
-    props: {
-      userInfo: null,
-    },
-  };
 };
 
 export default Index;

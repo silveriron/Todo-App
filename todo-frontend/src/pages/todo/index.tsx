@@ -61,9 +61,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const user = context.req.cookies.user;
 
   if (typeof user === "string") {
-    console.log(JSON.parse(user));
-
     const userInfo = JSON.parse(user);
+
+    console.log(userInfo);
+    console.log(userInfo.id);
+    console.log(userInfo.userName);
+    console.log(userInfo.email);
 
     return {
       props: {
